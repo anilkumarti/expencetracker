@@ -1,46 +1,41 @@
-const exsub=document.querySelector('.submit');
-const ul=document.querySelector('.item')
-exsub.addEventListener('click',expenseShow);
-function expenseShow(e)
+function localStore(e)
 { e.preventDefault();
-  const amount=document.getElementById('amount').value;
-  const details=document.getElementById('details').value;
-  const type=document.getElementById('list').value;
-  const show= amount+details+type;
-  console.log(show)
-  li=document.createElement('li');
-  li.className="listItems";
-  li.textContent=show;
-  ul.appendChild(li)
-  //add edit button
-  const edit=document.createElement('button');
-  edit.className="btn";
-  edit.textContent='Edit';
-  li.appendChild(edit);
-//add close button
-const closeoff=document.createElement('button');
-closeoff.className="close delBtn";
-closeoff.textContent='X';
-li.appendChild(closeoff);
+ const amount=e.target.amount.value;
+ const details=e.target.details.value;
+ const list=e.target.list.value;
+ const myObj= {
+  amount:amount,
+  details:details,
+  list:list
+ } 
+ localStorage.setItem(list,JSON.stringify(myObj))
+ display(myObj);
+ e.target.reset()
+ console.log("red")
 
-} 
+} function display(myObj)
+{
+   const ele=document.getElementById('item');
+  ele.innerHTML+=`<li data-list="${myObj.list}" > ${myObj.amount} - ${myObj.details} 
+   <button class="del" onClick="editDetail('${myObj.list}')">Edit</button>
+   <button class="ed" onClick="deleteUser('${myObj.list}')">X</button>
+  </li>`
+ 
+} function deleteUser(list)
+{ let childEle=document.querySelector(`li[data-list="${list}"]`);
+  childEle.remove();
+  localStorage.removeItem(list);
 
+ 
+} function editDetail(list)
+{
+  let obj=JSON.parse(localStorage.getItem(list));
+  let amount=obj.amount;
+  let details=obj.details;
 
-ul.addEventListener('click',closeDetails);
-function closeDetails(e) {
-    if (e.target.classList.contains('delBtn')) {
-      const li = e.target.closest('li');
-      li.remove();
-    }
-  }
-  ul.addEventListener('click',editDetails);
-function editDetails(e) {
-    if (e.target.classList.contains('btn')) {
-      
+  document.getElementById('amount').value=amount;
+   document.getElementById('details').value=details;
 
-        document.getElementById('amount').value=amount;
-        document.getElementById('details').value=details;
-  document.getElementById('list').value=type;
-    }
-  }
-  
+  document.querySelector(`li[data-list="${list}"]`).remove()
+  localStorage.removeItem(list);
+}

@@ -6,20 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="">
+    <form  onsubmit="localStore(event)">
         <label for=""> Enter expense amount</label>
-        <input type="text" class="amount" id="amount">
+        <input type="text" class="amount" id="amount" name="amount" required>
         <label for="details"> Enter discription</label>
-        <input type="text" class="details" id="details">
+        <input type="text" class="details" id="details" name="details" required>
         <label for="list">Select expense type</label>
-        <select name="" id="list" class="list">
+        <select name="" id="list" class="list" name="list">
             <option value=" movie"> movie</option>
             <option value=" coaching fees"> coaching fees</option>
             <option value=" gym"> gym</option>
         </select>
         <button class="submit">Add expenses</button>
     </form>
-    <ul class="item"></ul>
+    <ul class="item" id="item">
+        <li>here will be details</li>
+    </ul>
     <script src="expencetrack.js"></script>
 </body>
 </html>
