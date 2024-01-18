@@ -58,7 +58,7 @@ function display(myObj)
     axios.delete(`https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp/${id}`)
     .then((response)=> { 
       console.log("data deleted")
-      // display(response.data);
+      
 
     })
     .catch(err=> console.log(err));
@@ -67,14 +67,32 @@ function display(myObj)
 
  
 } function editDetail(list)
-{
-  let obj=JSON.parse(localStorage.getItem(list));
-  let amount=obj.amount;
-  let details=obj.details;
+{  axios.get('https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp')
+  .then((res)=> { 
+     let key;
+     res.data.forEach((item)=> {   
+      console.log(item.list);
+      if(item.list==list)
+      { 
+        key=item;
+       
+      }
+     })
+     document.getElementById('amount').value=key.amount;
+     document.getElementById('details').value=key.details;
+    
+  })
+  .catch(err=>console.log(err));
+   
+      
+//   let obj=JSON.parse(localStorage.getItem(list));
+//   let amount=obj.amount;
+//   let details=obj.details;
 
-  document.getElementById('amount').value=amount;
-   document.getElementById('details').value=details;
+//   document.getElementById('amount').value=amount;
+//    document.getElementById('details').value=details;
 
-  document.querySelector(`li[data-list="${list}"]`).remove()
-  localStorage.removeItem(list);
+//   document.querySelector(`li[data-list="${list}"]`).remove()
+//   localStorage.removeItem(list);
+// 
 }
