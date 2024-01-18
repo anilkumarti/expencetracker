@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="expencetrack.css">
 </head>
 <body>
     <form  onsubmit="localStore(event)">
         <label for=""> Enter expense amount</label>
-        <input type="text" class="amount" id="amount" name="amount" required>
+        <input type="text" class="amount" id="amount" pattern="^(0|[1-9]\d{0,3}|10000)$" name="amount" required placeholder="Please enter Numbers only">
         <label for="details"> Enter discription</label>
         <input type="text" class="details" id="details" name="details" required>
         <label for="list">Select expense type</label>
@@ -20,8 +21,9 @@
         <button class="submit">Add expenses</button>
     </form>
     <ul class="item" id="item">
-        <li>here will be details</li>
+        <li>Here will be details</li>
     </ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"></script>
     <script src="expencetrack.js"></script>
 </body>
 </html>

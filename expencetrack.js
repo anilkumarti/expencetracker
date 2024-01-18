@@ -8,10 +8,17 @@ function localStore(e)
   details:details,
   list:list
  } 
- localStorage.setItem(list,JSON.stringify(myObj))
- display(myObj);
- e.target.reset()
- console.log("red")
+ axios.post("https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker", myObj)
+ .then(response=> {console.log(response)
+  display(response.data);
+ })
+ .catch(err=> { console.log(err);
+  document.body.innerHTML+= '<h3> Something went wrong</h3>'
+ })
+ //  localStorage.setItem(list,JSON.stringify(myObj))
+//  display(myObj);
+//  e.target.reset()
+
 
 } function display(myObj)
 {
