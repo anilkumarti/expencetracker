@@ -8,9 +8,9 @@ function localStore(e)
   details:details,
   list:list
  } 
- axios.post("https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker", myObj)
+ axios.post("https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp", myObj)
  .then(response=> {
-  console.log("this is refresed")
+  
   display(response.data);
  })
  .catch(err=> { console.log(err);
@@ -22,12 +22,12 @@ function localStore(e)
 
 
 }  window.addEventListener("DOMContentLoaded", ()=> {
-  axios.get("https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker")
+  axios.get("https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp")
   .then((response)=> {
     for(var i=0;i<response.data.length;i++)
     {
       display(response.data[i])
-    }
+    } console.log("this is refresed")
   })
   .catch(err=> console.log(err))
 })
@@ -44,12 +44,21 @@ function display(myObj)
 { let childEle=document.querySelector(`li[data-list="${list}"]`);
   childEle.remove();
   // localStorage.removeItem(list);
-  axios.get('https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker')
-  .then(((res)=> {const id= res.data[0].id;
-    axios.delete(`https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker/${id}`)
+  axios.get('https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp')
+  .then(((res)=> {
+    let id;
+      res.data.forEach((item)=> {
+        console.log(item)
+        if(item.list==list)
+        {
+          id = item._id; 
+        }
+      })
+
+    axios.delete(`https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp/${id}`)
     .then((response)=> { 
       console.log("data deleted")
-      display(response.data);
+      // display(response.data);
 
     })
     .catch(err=> console.log(err));
