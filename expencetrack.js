@@ -8,7 +8,7 @@ function localStore(e)
   details:details,
   list:list
  } 
- axios.post("https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp", myObj)
+ axios.post("https://crudcrud.com/api/48999725a9c643b594c0872c219bf71d/expense", myObj)
  .then(response=> {
   
   display(response.data);
@@ -22,7 +22,7 @@ function localStore(e)
 
 
 }  window.addEventListener("DOMContentLoaded", ()=> {
-  axios.get("https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp")
+  axios.get("https://crudcrud.com/api/48999725a9c643b594c0872c219bf71d/expense")
   .then((response)=> {
     for(var i=0;i<response.data.length;i++)
     {
@@ -44,7 +44,7 @@ function display(myObj)
 { let childEle=document.querySelector(`li[data-list="${list}"]`);
   childEle.remove();
   // localStorage.removeItem(list);
-  axios.get('https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp')
+  axios.get('https://crudcrud.com/api/48999725a9c643b594c0872c219bf71d/expense')
   .then(((res)=> {
     let id;
       res.data.forEach((item)=> {
@@ -55,7 +55,7 @@ function display(myObj)
         }
       })
 
-    axios.delete(`https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp/${id}`)
+    axios.delete(`https://crudcrud.com/api/48999725a9c643b594c0872c219bf71d/expense/${id}`)
     .then((response)=> { 
       console.log("data deleted")
       
@@ -67,7 +67,7 @@ function display(myObj)
 
  
 } function editDetail(list)
-{  axios.get('https://crudcrud.com/api/fe41dabad8204c94b326174fae133d1c/knowexp')
+{  axios.get('https://crudcrud.com/api/48999725a9c643b594c0872c219bf71d/expense')
   .then((res)=> { 
      let key;
      res.data.forEach((item)=> {   
@@ -80,10 +80,10 @@ function display(myObj)
      })
      document.getElementById('amount').value=key.amount;
      document.getElementById('details').value=key.details;
-    
+     deleteUser(list);
   })
-  .catch(err=>console.log(err));
-   
+  .catch(err=>console.log(err))
+  
       
 //   let obj=JSON.parse(localStorage.getItem(list));
 //   let amount=obj.amount;
@@ -92,7 +92,7 @@ function display(myObj)
 //   document.getElementById('amount').value=amount;
 //    document.getElementById('details').value=details;
 
-//   document.querySelector(`li[data-list="${list}"]`).remove()
+//  document.querySelector(`li[data-list="${list}"]`).remove()
 //   localStorage.removeItem(list);
 // 
 }
