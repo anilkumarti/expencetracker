@@ -9,7 +9,8 @@ function localStore(e)
   list:list
  } 
  axios.post("https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker", myObj)
- .then(response=> {console.log(response)
+ .then(response=> {
+  console.log("this is refresed")
   display(response.data);
  })
  .catch(err=> { console.log(err);
@@ -20,7 +21,18 @@ function localStore(e)
 //  e.target.reset()
 
 
-} function display(myObj)
+}  window.addEventListener("DOMContentLoaded", ()=> {
+  axios.get("https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker")
+  .then((response)=> {
+    for(var i=0;i<response.data.length;i++)
+    {
+      display(response.data[i])
+    }
+  })
+  .catch(err=> console.log(err))
+})
+
+function display(myObj)
 {
    const ele=document.getElementById('item');
   ele.innerHTML+=`<li data-list="${myObj.list}" > ${myObj.amount} - ${myObj.details} 
@@ -31,7 +43,18 @@ function localStore(e)
 } function deleteUser(list)
 { let childEle=document.querySelector(`li[data-list="${list}"]`);
   childEle.remove();
-  localStorage.removeItem(list);
+  // localStorage.removeItem(list);
+  axios.get('https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker')
+  .then(((res)=> {const id= res.data[0].id;
+    axios.delete(`https://crudcrud.com/api/2da2c1e60a394d3691088268ff317142/feestracker/${id}`)
+    .then((response)=> { 
+      console.log("data deleted")
+      display(response.data);
+
+    })
+    .catch(err=> console.log(err));
+   }))
+   .catch(err=> console.log(err));
 
  
 } function editDetail(list)
